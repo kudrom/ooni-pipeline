@@ -83,7 +83,9 @@ class Measurement(object):
 
     def add_status_field(self, controls):
         """ Iterate measurements and embed the status field."""
-        closest_control = find_closest(controls, self)
+        test_input = self.get_test_input()
+        filtered_controls = list(filter(lambda x: x.get_test_input() == test_input, controls))
+        closest_control = find_closest(filtered_controls, self)
         status = truth_table(self.measurement, closest_control.measurement)
         self.measurement['status'] = status
 
